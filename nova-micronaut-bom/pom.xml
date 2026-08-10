@@ -14,18 +14,13 @@
     <packaging>pom</packaging>
 
     <name>Nova Platform Micronaut BOM</name>
-    <description>BOM para proyectos Micronaut del meta-framework Nova. Importa la Micronaut Platform (consenso del ecosistema: 5.0.4) y centraliza las versiones de los módulos internos Nova Platform.</description>
+    <description>BOM para proyectos Micronaut del meta-framework Nova. Importa la Micronaut Platform (consenso del ecosistema: 5.0.4). Todavía no gestiona módulos internos Nova Platform.</description>
 
     <properties>
-        <!-- Micronaut 5 LTS adopted by Nova (only the notifications module is
-             shipped today; consensus value comes from
-             nova-java-notifications-micronaut-module/build.gradle.kts). Override
-             only if migrating the whole stack. -->
+        <!-- Micronaut 5 LTS adopted by Nova. Override only if migrating the
+             whole stack. -->
         <micronaut.platform.version>5.0.4</micronaut.platform.version>
         <micronaut-test.version>5.0.1</micronaut-test.version>
-
-        <!-- Internal Nova Micronaut modules. -->
-        <nova-notifications-micronaut-module.version>1.0.0</nova-notifications-micronaut-module.version>
     </properties>
 
     <dependencyManagement>
@@ -37,13 +32,6 @@
                 <version>${micronaut.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- Internal Nova Platform Micronaut modules. -->
-            <dependency>
-                <groupId>pe.edu.nova.java.starters</groupId>
-                <artifactId>nova-notifications-micronaut-module</artifactId>
-                <version>${nova-notifications-micronaut-module.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -24,7 +24,6 @@
         <quarkus.platform.version>3.33.2.1</quarkus.platform.version>
 
         <!-- Internal Nova extensions. Versions are the canonical GH Packages coordinates. -->
-        <nova-notifications-quarkus-extension.version>1.1.6</nova-notifications-quarkus-extension.version>
         <!-- Artifact rename from nova-api-standard-quarkus-extension to nova-quarkus-api-ext
              was a workaround for the GitHub Packages maven-publish plugin + 20-char
              artifactId limit. See docs/java/07-quarkus-analisis-adopcion.md §8. -->
@@ -43,11 +42,6 @@
             </dependency>
 
             <!-- Internal Nova Platform Quarkus extensions. -->
-            <dependency>
-                <groupId>pe.edu.nova.java.starters</groupId>
-                <artifactId>nova-notifications-quarkus-extension</artifactId>
-                <version>${nova-notifications-quarkus-extension.version}</version>
-            </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-quarkus-api-ext</artifactId>
