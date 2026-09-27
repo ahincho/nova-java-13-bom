@@ -15,26 +15,26 @@ on:
 jobs:
   build:
     if: github.event_name == 'pull_request'
-    uses: ahincho/nova-devops/.github/workflows/reusable-build-maven.yml@main
+    uses: ahincho/nova-shared-02-pipelines/.github/workflows/reusable-build-maven.yml@main
     secrets: inherit
 
   matrix:
     if: github.event_name == 'pull_request'
-    uses: ahincho/nova-devops/.github/workflows/reusable-build-matrix.yml@main
+    uses: ahincho/nova-shared-02-pipelines/.github/workflows/reusable-build-matrix.yml@main
     with:
       build-tool: maven
     secrets: inherit
 
   owasp:
     if: github.event_name == 'pull_request'
-    uses: ahincho/nova-devops/.github/workflows/reusable-owasp-check.yml@main
+    uses: ahincho/nova-shared-02-pipelines/.github/workflows/reusable-owasp-check.yml@main
     with:
       build-tool: maven
     secrets: inherit
 
   sbom:
     if: github.event_name == 'pull_request'
-    uses: ahincho/nova-devops/.github/workflows/reusable-sbom.yml@main
+    uses: ahincho/nova-shared-02-pipelines/.github/workflows/reusable-sbom.yml@main
     with:
       build-tool: maven
     secrets: inherit

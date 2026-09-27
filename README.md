@@ -53,7 +53,7 @@ BOM (Bill of Materials) raíz que centraliza las versiones de las librerías y s
 </dependencyManagement>
 ```
 
-GitHub Packages requiere autenticación incluso para lectura pública — ver [`nova-java-spring-boot-parent/pom.xml`](https://github.com/ahincho/nova-java-spring-boot-parent/blob/main/pom.xml) para un ejemplo de `<repositories>` + `settings.xml` (server id por repo Nova externo, ya que Maven exige `id` único por `<repository>`).
+GitHub Packages requiere autenticación incluso para lectura pública — ver [`nova-java-spring-boot-parent/pom.xml`](https://github.com/ahincho/nova-java-14-spring-boot-parent/blob/main/pom.xml) para un ejemplo de `<repositories>` + `settings.xml` (server id por repo Nova externo, ya que Maven exige `id` único por `<repository>`).
 
 ### Gradle
 
@@ -65,7 +65,7 @@ dependencies {
 
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/ahincho/nova-bom")
+        url = uri("https://maven.pkg.github.com/ahincho/nova-java-13-bom")
         credentials {
             username = System.getenv("GITHUB_ACTOR")
             password = System.getenv("NOVA_PACKAGES_READ_TOKEN") ?: System.getenv("GITHUB_TOKEN")
@@ -89,7 +89,7 @@ Todos los artefactos de Nova Platform se validan en CI contra **Java 21** (míni
 
 No existe un `gradle/libs.versions.toml` (version catalog) compartido entre los 9 repos Gradle — cada `build.gradle.kts` declara sus propias versiones de forma independiente. Esta tabla es **mantenida manualmente**: actualízala cada vez que se publique una versión nueva de cualquier BOM o de cualquier artefacto que un BOM gestione. Fuente de verdad para "qué está realmente publicado": tags Git (`v*`) + `.release-please-manifest.json` + `CHANGELOG.md` de cada repo — **no** el `gradle.properties`/`pom.xml` del working tree (que normalmente queda en `0.1.0-SNAPSHOT`/`-SNAPSHOT` entre releases).
 
-Ver también: [ADR-018 — Política de versionado y bump](https://github.com/ahincho/nova-docs/blob/main/adrs/versioning/ADR-018-politica-de-versioning-y-bump.md), [docs/java/06-semantic-versioning-en-java.md](https://github.com/ahincho/nova-docs/blob/main/java/06-semantic-versioning-en-java.md) (§11.9.30, NOVA-SEMVER-22).
+Ver también: [ADR-018 — Política de versionado y bump](https://github.com/ahincho/nova-shared-01-docs/blob/main/adrs/versioning/ADR-018-politica-de-versioning-y-bump.md), [docs/java/06-semantic-versioning-en-java.md](https://github.com/ahincho/nova-shared-01-docs/blob/main/java/06-semantic-versioning-en-java.md) (§11.9.30, NOVA-SEMVER-22).
 
 ## License
 
