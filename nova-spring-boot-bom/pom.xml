@@ -7,7 +7,7 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.1</version>
     </parent>
 
     <artifactId>nova-spring-boot-bom</artifactId>
@@ -27,7 +27,7 @@
         <mask-utils-spring-boot-starter.version>2.0.0</mask-utils-spring-boot-starter.version>
         <api-standard-spring-boot-starter.version>2.0.0</api-standard-spring-boot-starter.version>
         <observability-spring-boot-starter.version>2.0.0</observability-spring-boot-starter.version>
-        <nova-spring-boot-starter.version>1.0.3</nova-spring-boot-starter.version>
+        <nova-spring-boot-starter.version>1.0.4</nova-spring-boot-starter.version>
     </properties>
 
     <dependencyManagement>
