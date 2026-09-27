@@ -6,7 +6,7 @@
 
     <groupId>pe.edu.nova.java</groupId>
     <artifactId>nova-bom</artifactId>
-    <version>1.0.2</version>
+    <version>2.0.0</version>
     <packaging>pom</packaging>
 
     <name>Nova Platform BOM</name>
@@ -22,11 +22,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versiones de librerías internas -->
         <!-- artifactId real = rootProject.name en cada settings.gradle.kts (NOVA-SEMVER-31: nombre repo != artifactId) -->
-        <!-- Versiones reales publicadas en GitHub Packages el 2026-07-10 (ver §11.9.15). -->
-        <mask-utils.version>1.0.0</mask-utils.version>
-        <date-utils.version>1.0.0</date-utils.version>
-        <mapper-utils.version>1.0.0</mapper-utils.version>
-        <api-standard.version>1.0.0</api-standard.version>
+        <!-- Últimas versiones publicadas en GitHub Packages, verificadas el 2026-09-27. -->
+        <mask-utils.version>1.1.2</mask-utils.version>
+        <date-utils.version>1.0.2</date-utils.version>
+        <mapper-utils.version>1.0.2</mapper-utils.version>
+        <api-standard.version>1.0.2</api-standard.version>
     </properties>
 
     <dependencyManagement>
@@ -37,22 +37,22 @@
             <dependency>
                 <groupId>pe.edu.nova.java.libs</groupId>
                 <artifactId>nova-mask-utils</artifactId>
-                <version>1.0.0</version>
+                <version>1.1.2</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.libs</groupId>
                 <artifactId>nova-date-utils</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.2</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.libs</groupId>
                 <artifactId>nova-mapper-utils</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.2</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.libs</groupId>
                 <artifactId>nova-api-standard</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

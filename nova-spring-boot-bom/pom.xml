@@ -7,7 +7,7 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>1.0.2</version>
+        <version>2.0.0</version>
     </parent>
 
     <artifactId>nova-spring-boot-bom</artifactId>
@@ -18,18 +18,38 @@
 
     <properties>
         <!-- Spring Boot -->
-        <spring-boot.version>4.0.5</spring-boot.version>
-        <!-- Starters internos (artifactId real = rootProject.name, ver NOVA-SEMVER-31) -->
-        <!-- Versiones reales publicadas en GitHub Packages el 2026-07-10 (ver §11.9.15) -->
-        <mask-utils-spring-boot-starter.version>1.0.0</mask-utils-spring-boot-starter.version>
-        <api-standard-spring-boot-starter.version>1.0.0</api-standard-spring-boot-starter.version>
-        <observability-spring-boot-starter.version>1.0.0</observability-spring-boot-starter.version>
-        <nova-spring-boot-starter.version>1.0.0</nova-spring-boot-starter.version>
+        <spring-boot.version>4.0.8</spring-boot.version>
+        <!-- Spring Boot 4.0.8 todavía fija Tomcat 11.0.24, que tiene CVE-2026-68525,
+             CVE-2026-65905 y CVE-2026-65182 (corregidos en la 11.0.25). -->
+        <tomcat.version>11.0.26</tomcat.version>
+        <!-- Starters internos: artifactId según ADR-039. Últimas versiones publicadas,
+             verificadas el 2026-09-27. -->
+        <mask-utils-spring-boot-starter.version>2.0.0</mask-utils-spring-boot-starter.version>
+        <api-standard-spring-boot-starter.version>2.0.0</api-standard-spring-boot-starter.version>
+        <observability-spring-boot-starter.version>2.0.0</observability-spring-boot-starter.version>
+        <nova-spring-boot-starter.version>1.0.3</nova-spring-boot-starter.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <!-- BOM Raíz (Librerías) — Heredado vía parent -->
+            <!-- Tomcat va antes del BOM de Spring Boot: una entrada propia manda sobre la
+                 que llega por import, en Maven y en Gradle. -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
             <!-- BOM de Spring Boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -42,23 +62,23 @@
                  para evitar depender de la interpolación de properties del parent POM). -->
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
-                <artifactId>nova-mask-starter</artifactId>
-                <version>1.0.0</version>
+                <artifactId>nova-mask-spring-boot-starter</artifactId>
+                <version>2.0.0</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
-                <artifactId>nova-api-standard-starter</artifactId>
-                <version>1.0.0</version>
+                <artifactId>nova-api-standard-spring-boot-starter</artifactId>
+                <version>2.0.0</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
-                <artifactId>nova-observability-starter</artifactId>
-                <version>1.0.0</version>
+                <artifactId>nova-observability-spring-boot-starter</artifactId>
+                <version>2.0.0</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-spring-boot-starter</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
