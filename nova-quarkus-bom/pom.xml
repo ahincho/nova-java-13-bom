@@ -7,32 +7,33 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>1.0.2</version>
+        <version>2.0.0</version>
     </parent>
 
     <artifactId>nova-quarkus-bom</artifactId>
     <packaging>pom</packaging>
 
     <name>Nova Platform Quarkus BOM</name>
-    <description>BOM para proyectos Quarkus del meta-framework Nova. Importa el Quarkus upstream BOM (consenso del ecosistema: 3.33.2.1 LTS) y centraliza las versiones de las extensions internas Nova Platform.</description>
+    <description>BOM para proyectos Quarkus del meta-framework Nova. Importa el Quarkus upstream BOM (consenso del ecosistema: 3.33.3.3 LTS) y centraliza las versiones de las extensions internas Nova Platform.</description>
 
     <properties>
         <!-- Quarkus LTS branch adopted by Nova (single source of truth across parent,
              extensions, instances, demos). Override only if migrating the whole stack. -->
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>3.33.2.1</quarkus.platform.version>
+        <!-- 3.33.3.3 trae Netty 4.1.138 y Vert.x 4.5.34; la 3.33.2.1 traía versiones con
+             CVE por encima de CVSS 7. -->
+        <quarkus.platform.version>3.33.3.3</quarkus.platform.version>
 
         <!-- Internal Nova extensions. Versions are the canonical GH Packages coordinates. -->
-        <!-- Artifact rename from nova-api-standard-quarkus-extension to nova-quarkus-api-ext
-             was a workaround for the GitHub Packages maven-publish plugin + 20-char
-             artifactId limit. See docs/java/07-quarkus-analisis-adopcion.md §8. -->
-        <nova-quarkus-api-ext.version>1.0.1</nova-quarkus-api-ext.version>
+        <!-- ADR-039: el artifactId deriva del repositorio. Hasta la 1.0.1 la extensión se
+             publicó como nova-quarkus-api-ext; la 2.0.1 es la primera con este nombre. -->
+        <nova-api-standard-quarkus-extension.version>2.0.1</nova-api-standard-quarkus-extension.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Upstream Quarkus BOM (consensus 3.33.2.1 LTS). -->
+            <!-- Upstream Quarkus BOM (consensus 3.33.3.3 LTS). -->
             <dependency>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>${quarkus.platform.artifact-id}</artifactId>
@@ -44,8 +45,8 @@
             <!-- Internal Nova Platform Quarkus extensions. -->
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
-                <artifactId>nova-quarkus-api-ext</artifactId>
-                <version>${nova-quarkus-api-ext.version}</version>
+                <artifactId>nova-api-standard-quarkus-extension</artifactId>
+                <version>${nova-api-standard-quarkus-extension.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
