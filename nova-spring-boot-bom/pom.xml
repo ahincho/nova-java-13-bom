@@ -7,7 +7,7 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.3</version>
     </parent>
 
     <artifactId>nova-spring-boot-bom</artifactId>
@@ -22,11 +22,14 @@
         <!-- Spring Boot 4.0.8 todavía fija Tomcat 11.0.24, que tiene CVE-2026-68525,
              CVE-2026-65905 y CVE-2026-65182 (corregidos en la 11.0.25). -->
         <tomcat.version>11.0.26</tomcat.version>
+        <!-- La misma instrumentación con la que se construye nova-observability-spring-boot-starter
+             (otelInstrumentationVersion en su build.gradle.kts). -->
+        <opentelemetry-instrumentation.version>2.31.1</opentelemetry-instrumentation.version>
         <!-- Starters internos: artifactId según ADR-039. Últimas versiones publicadas,
              verificadas el 2026-09-27. -->
         <mask-utils-spring-boot-starter.version>2.0.0</mask-utils-spring-boot-starter.version>
         <api-standard-spring-boot-starter.version>2.0.0</api-standard-spring-boot-starter.version>
-        <observability-spring-boot-starter.version>2.0.0</observability-spring-boot-starter.version>
+        <observability-spring-boot-starter.version>2.0.1</observability-spring-boot-starter.version>
         <nova-spring-boot-starter.version>1.0.4</nova-spring-boot-starter.version>
     </properties>
 
@@ -49,6 +52,17 @@
                 <groupId>org.apache.tomcat.embed</groupId>
                 <artifactId>tomcat-embed-el</artifactId>
                 <version>${tomcat.version}</version>
+            </dependency>
+            <!-- OpenTelemetry va antes del BOM de Spring Boot. En Maven gana el primer import que
+                 gestiona un artefacto, y Spring Boot 4.0.8 fija el núcleo de OpenTelemetry en 1.55.0,
+                 mientras la instrumentación 2.31.1 necesita 1.65.0: sin este import, el starter de
+                 observabilidad falla al arrancar con NoSuchFieldError. En Gradle gana la más alta. -->
+            <dependency>
+                <groupId>io.opentelemetry.instrumentation</groupId>
+                <artifactId>opentelemetry-instrumentation-bom</artifactId>
+                <version>${opentelemetry-instrumentation.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <!-- BOM de Spring Boot -->
             <dependency>
@@ -78,7 +92,7 @@
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-spring-boot-starter</artifactId>
-                <version>1.0.3</version>
+                <version>1.0.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
