@@ -13,6 +13,7 @@ BOM (Bill of Materials) raíz que centraliza las versiones de las librerías y s
 | **1.0.0** | 1.0.0 | 1.0.0 | 1.0.0 | 1.0.0 |
 | **2.0.0** | 1.0.2 | 1.0.2 | 1.0.2 | 1.1.2 |
 | **2.0.1** | 1.0.2 | 1.0.2 | 1.0.2 | 1.1.2 |
+| **2.0.2** | 1.0.2 | 1.0.2 | 1.0.2 | 1.1.2 |
 
 ### `nova-spring-boot-bom` (extiende `nova-bom` + Spring Boot)
 
@@ -21,11 +22,12 @@ BOM (Bill of Materials) raíz que centraliza las versiones de las librerías y s
 | **1.0.0** | 4.0.5 | 1.0.0 | 1.0.0 | 1.0.0 | 1.0.0 |
 | **2.0.0** | 4.0.8, con Tomcat 11.0.26 | 1.0.3 | 2.0.0 | 2.0.0 | 2.0.0 |
 | **2.0.1** | 4.0.8, con Tomcat 11.0.26 | 1.0.4 | 2.0.0 | 2.0.0 | 2.0.0 |
+| **2.0.2** | 4.0.8, con Tomcat 11.0.26 | 1.0.4 | 2.0.0 | 2.0.0 | 2.0.1 |
 
-Hasta la 1.0.x, los tres starters se publicaban como `nova-api-standard-starter`, `nova-mask-starter` y `nova-observability-starter`. La 2.0.0 del BOM gestiona los nombres de [ADR-039](https://github.com/ahincho/nova-shared-01-docs/blob/main/adrs/shared/ADR-039-nombres-de-artefacto-derivados-del-repositorio.md), y fija Tomcat en 11.0.26 porque Spring Boot 4.0.8 todavía trae la 11.0.24, con tres CVE altos. La 2.0.1 solo cambia `nova-spring-boot-starter`: la 1.0.3 todavía reexportaba los starters con los nombres viejos, y la 1.0.4 reexporta los nuevos.
+Hasta la 1.0.x, los tres starters se publicaban como `nova-api-standard-starter`, `nova-mask-starter` y `nova-observability-starter`. La 2.0.0 del BOM gestiona los nombres de [ADR-039](https://github.com/ahincho/nova-shared-01-docs/blob/main/adrs/shared/ADR-039-nombres-de-artefacto-derivados-del-repositorio.md), y fija Tomcat en 11.0.26 porque Spring Boot 4.0.8 todavía trae la 11.0.24, con tres CVE altos. La 2.0.1 solo cambia `nova-spring-boot-starter`: la 1.0.3 todavía reexportaba los starters con los nombres viejos, y la 1.0.4 reexporta los nuevos. La 2.0.2 solo cambia `nova-observability-spring-boot-starter` a la 2.0.1: la 2.0.0 no resuelve, porque pide `opentelemetry-semconv-incubating` 1.43.0, una versión que no existe.
 
 ⚠️ **Importante — alcance real de `nova-spring-boot-bom` para consumidores Maven:** este BOM gestiona directamente los 4 starters + `spring-boot-dependencies`, pero **NO** re-importa (`<scope>import</scope>`) las 4 librerías puras de `nova-bom` (`nova-api-standard`, `nova-date-utils`, `nova-mapper-utils`, `nova-mask-utils`) — solo las obtiene por herencia normal de `<parent>`. Esto tiene una consecuencia real y no obvia:
-- **Consumidores Gradle** (via `api(platform("pe.edu.nova.java:nova-spring-boot-bom:2.0.1"))`): SÍ ven las 4 librerías gestionadas, porque Gradle lee el modelo POM efectivo completo (incluyendo lo heredado del `<parent>`). Así es como `nova-spring-boot-starter` declara `api("pe.edu.nova.java.libs:nova-date-utils")` sin versión y funciona.
+- **Consumidores Gradle** (via `api(platform("pe.edu.nova.java:nova-spring-boot-bom:2.0.2"))`): SÍ ven las 4 librerías gestionadas, porque Gradle lee el modelo POM efectivo completo (incluyendo lo heredado del `<parent>`). Así es como `nova-spring-boot-starter` declara `api("pe.edu.nova.java.libs:nova-date-utils")` sin versión y funciona.
 - **Consumidores Maven** que importen `nova-spring-boot-bom` con `<scope>import</scope>` (la forma estándar/correcta de consumir un BOM en Maven) **NO** heredan la gestión de versiones de las 4 librerías puras — Maven's `import` scope solo trae el `<dependencyManagement>` propio del POM importado, no el de sus padres transitivos. Si necesitas una versión gestionada de `nova-date-utils` en un proyecto Maven, importa **también** `nova-bom` explícitamente, o fija la versión manualmente.
 
 ### `nova-quarkus-bom` (extiende `nova-bom` + Quarkus)
@@ -34,6 +36,7 @@ Hasta la 1.0.x, los tres starters se publicaban como `nova-api-standard-starter`
 |---|---|---|
 | **2.0.0** | 3.33.3.3 LTS | 2.0.1 |
 | **2.0.1** | 3.33.3.3 LTS | 2.0.1 |
+| **2.0.2** | 3.33.3.3 LTS | 2.0.1 |
 
 Hasta la 1.0.2, este BOM pedía `nova-quarkus-api-ext:1.0.1`, un paquete que ya no existe en el registro, así que no resolvía.
 
@@ -51,7 +54,7 @@ Importa `micronaut-platform` 5.0.4 y todavía no gestiona ningún artefacto de N
     <dependency>
       <groupId>pe.edu.nova.java</groupId>
       <artifactId>nova-spring-boot-bom</artifactId>
-      <version>2.0.1</version>
+      <version>2.0.2</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -60,7 +63,7 @@ Importa `micronaut-platform` 5.0.4 y todavía no gestiona ningún artefacto de N
     <dependency>
       <groupId>pe.edu.nova.java</groupId>
       <artifactId>nova-bom</artifactId>
-      <version>2.0.1</version>
+      <version>2.0.2</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -74,7 +77,7 @@ GitHub Packages requiere autenticación incluso para lectura pública — ver [`
 
 ```kotlin
 dependencies {
-    api(platform("pe.edu.nova.java:nova-spring-boot-bom:2.0.1"))
+    api(platform("pe.edu.nova.java:nova-spring-boot-bom:2.0.2"))
     api("pe.edu.nova.java.libs:nova-date-utils") // version gestionada por el BOM
 }
 
