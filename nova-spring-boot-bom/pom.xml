@@ -7,7 +7,7 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>2.0.3</version>
+        <version>2.1.0</version>
     </parent>
 
     <artifactId>nova-spring-boot-bom</artifactId>
@@ -26,11 +26,15 @@
              (otelInstrumentationVersion en su build.gradle.kts). -->
         <opentelemetry-instrumentation.version>2.31.1</opentelemetry-instrumentation.version>
         <!-- Starters internos: artifactId según ADR-039. Últimas versiones publicadas,
-             verificadas el 2026-09-27. -->
+             verificadas el 2026-09-30. -->
         <mask-utils-spring-boot-starter.version>2.0.0</mask-utils-spring-boot-starter.version>
         <api-standard-spring-boot-starter.version>2.0.0</api-standard-spring-boot-starter.version>
-        <observability-spring-boot-starter.version>2.0.1</observability-spring-boot-starter.version>
+        <observability-spring-boot-starter.version>2.0.2</observability-spring-boot-starter.version>
         <nova-spring-boot-starter.version>1.0.4</nova-spring-boot-starter.version>
+        <!-- Capacidad de secretos (ADR-041): nova-java-23-secrets publica sus cuatro artefactos con
+             una sola versión, así que el BOM los gestiona con una sola propiedad. Última versión
+             publicada, verificada el 2026-09-30. -->
+        <nova-secrets.version>1.0.1</nova-secrets.version>
     </properties>
 
     <dependencyManagement>
@@ -87,12 +91,36 @@
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-observability-spring-boot-starter</artifactId>
-                <version>2.0.1</version>
+                <version>2.0.2</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-spring-boot-starter</artifactId>
                 <version>1.0.4</version>
+            </dependency>
+            <!-- Capacidad de secretos (ADR-041, regla 5): los cuatro artefactos salen con la misma
+                 versión y las entradas usan nova-secrets.version, no un literal. Con un literal la
+                 propiedad no gestionaría nada, como le pasó a nova-spring-boot-starter en la 2.0.1.
+                 La propiedad vive en este mismo POM, no en el padre. -->
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-secrets</artifactId>
+                <version>${nova-secrets.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-secrets-vault</artifactId>
+                <version>${nova-secrets.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-secrets-aws-secrets-manager</artifactId>
+                <version>${nova-secrets.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.starters</groupId>
+                <artifactId>nova-secrets-spring-boot-starter</artifactId>
+                <version>${nova-secrets.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
