@@ -31,6 +31,10 @@
         <api-standard-spring-boot-starter.version>2.0.0</api-standard-spring-boot-starter.version>
         <observability-spring-boot-starter.version>2.0.1</observability-spring-boot-starter.version>
         <nova-spring-boot-starter.version>1.0.4</nova-spring-boot-starter.version>
+        <!-- Capacidad de secretos (ADR-041): nova-java-23-secrets publica sus cuatro artefactos con
+             una sola versión, así que el BOM los gestiona con una sola propiedad. Última versión
+             publicada, verificada el 2026-09-30. -->
+        <nova-secrets.version>1.0.1</nova-secrets.version>
     </properties>
 
     <dependencyManagement>
@@ -93,6 +97,30 @@
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-spring-boot-starter</artifactId>
                 <version>1.0.4</version>
+            </dependency>
+            <!-- Capacidad de secretos (ADR-041, regla 5): los cuatro artefactos salen con la misma
+                 versión y las entradas usan nova-secrets.version, no un literal. Con un literal la
+                 propiedad no gestionaría nada, como le pasó a nova-spring-boot-starter en la 2.0.1.
+                 La propiedad vive en este mismo POM, no en el padre. -->
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-secrets</artifactId>
+                <version>${nova-secrets.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-secrets-vault</artifactId>
+                <version>${nova-secrets.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-secrets-aws-secrets-manager</artifactId>
+                <version>${nova-secrets.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.starters</groupId>
+                <artifactId>nova-secrets-spring-boot-starter</artifactId>
+                <version>${nova-secrets.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
