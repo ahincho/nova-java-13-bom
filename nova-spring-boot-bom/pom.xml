@@ -7,7 +7,7 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>2.1.0</version>
+        <version>2.2.0</version>
     </parent>
 
     <artifactId>nova-spring-boot-bom</artifactId>
@@ -35,6 +35,9 @@
              una sola versión, así que el BOM los gestiona con una sola propiedad. Última versión
              publicada, verificada el 2026-09-30. -->
         <nova-secrets.version>1.0.1</nova-secrets.version>
+        <!-- Capacidad de idempotencia (ADR-047): nova-java-25-idempotency publica sus tres artefactos
+             con una sola versión. Última versión publicada, verificada el 2026-09-30. -->
+        <nova-idempotency.version>0.1.1</nova-idempotency.version>
     </properties>
 
     <dependencyManagement>
@@ -121,6 +124,23 @@
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-secrets-spring-boot-starter</artifactId>
                 <version>${nova-secrets.version}</version>
+            </dependency>
+            <!-- Capacidad de idempotencia (ADR-047), con la misma regla: una sola propiedad, en este
+                 POM, y todas las entradas la usan. -->
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-idempotency</artifactId>
+                <version>${nova-idempotency.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-idempotency-jdbc</artifactId>
+                <version>${nova-idempotency.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.starters</groupId>
+                <artifactId>nova-idempotency-spring-boot-starter</artifactId>
+                <version>${nova-idempotency.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
