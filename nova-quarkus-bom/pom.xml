@@ -7,7 +7,7 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>3.0.1</version>
+        <version>3.1.0</version>
     </parent>
 
     <artifactId>nova-quarkus-bom</artifactId>
@@ -29,6 +29,10 @@
         <!-- ADR-039: el artifactId deriva del repositorio. Hasta la 1.0.1 la extensión se
              publicó como nova-quarkus-api-ext; la 2.0.1 es la primera con este nombre. -->
         <nova-api-standard-quarkus-extension.version>2.0.1</nova-api-standard-quarkus-extension.version>
+        <!-- Capacidad de secretos (ADR-041 y ADR-049): la misma familia que gestiona nova-spring-boot-bom,
+             con su extensión de Quarkus en lugar del starter. Todos sus artefactos salen con una sola
+             versión. Última versión publicada, verificada el 2026-10-01. -->
+        <nova-secrets.version>1.2.0</nova-secrets.version>
     </properties>
 
     <dependencyManagement>
@@ -47,6 +51,28 @@
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-api-standard-quarkus-extension</artifactId>
                 <version>${nova-api-standard-quarkus-extension.version}</version>
+            </dependency>
+            <!-- Capacidad de secretos (ADR-049). El módulo de deployment no se declara: Quarkus lo
+                 resuelve desde el descriptor de la extensión, con la misma versión. -->
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-secrets</artifactId>
+                <version>${nova-secrets.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-secrets-vault</artifactId>
+                <version>${nova-secrets.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-secrets-aws-secrets-manager</artifactId>
+                <version>${nova-secrets.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.starters</groupId>
+                <artifactId>nova-secrets-quarkus-extension</artifactId>
+                <version>${nova-secrets.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
