@@ -7,7 +7,7 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>2.2.0</version>
+        <version>3.0.0</version>
     </parent>
 
     <artifactId>nova-spring-boot-bom</artifactId>
@@ -26,9 +26,9 @@
              (otelInstrumentationVersion en su build.gradle.kts). -->
         <opentelemetry-instrumentation.version>2.31.1</opentelemetry-instrumentation.version>
         <!-- Starters internos: artifactId según ADR-039. Últimas versiones publicadas,
-             verificadas el 2026-09-30. -->
-        <mask-utils-spring-boot-starter.version>2.0.0</mask-utils-spring-boot-starter.version>
-        <api-standard-spring-boot-starter.version>2.0.0</api-standard-spring-boot-starter.version>
+             verificadas el 2026-10-01. -->
+        <mask-utils-spring-boot-starter.version>3.0.0</mask-utils-spring-boot-starter.version>
+        <api-standard-spring-boot-starter.version>3.0.0</api-standard-spring-boot-starter.version>
         <observability-spring-boot-starter.version>2.0.2</observability-spring-boot-starter.version>
         <nova-spring-boot-starter.version>1.0.4</nova-spring-boot-starter.version>
         <!-- Capacidad de secretos (ADR-041): nova-java-23-secrets publica sus cuatro artefactos con
@@ -84,12 +84,12 @@
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-mask-spring-boot-starter</artifactId>
-                <version>2.0.0</version>
+                <version>3.0.0</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-api-standard-spring-boot-starter</artifactId>
-                <version>2.0.0</version>
+                <version>3.0.0</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
