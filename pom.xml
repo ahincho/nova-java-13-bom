@@ -6,7 +6,7 @@
 
     <groupId>pe.edu.nova.java</groupId>
     <artifactId>nova-bom</artifactId>
-    <version>4.0.0</version>
+    <version>4.1.0</version>
     <packaging>pom</packaging>
 
     <name>Nova Platform BOM</name>
