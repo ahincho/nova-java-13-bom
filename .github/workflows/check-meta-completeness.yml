@@ -1,0 +1,39 @@
+name: Meta-artifact completeness
+
+# La prueba de completitud de ADR-052 (regla 2): el meta-starter de Spring Boot, y la meta-extensión
+# de Quarkus cuando exista, traen cada starter que el BOM gestiona, en la misma versión. Lee el POM
+# publicado de la meta-dependencia, así que corre en el PR y también antes de publicar el BOM
+# (publish.yml), para que publicarlo antes que el meta-starter no sea posible.
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Rama o SHA a comprobar; vacío usa el del evento'
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Test the check itself
+        run: python3 -m unittest discover -s scripts -v
+
+      # El GITHUB_TOKEN alcanza para leer los paquetes públicos de otros repositorios del mismo dueño.
+      - name: Check that the meta-artifacts bring every starter the BOM manages
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/check_meta_completeness.py
