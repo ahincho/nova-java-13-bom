@@ -38,3 +38,11 @@ jobs:
     with:
       build-tool: maven
     secrets: inherit
+
+  # ADR-052, regla 2: el meta-starter trae cada starter que este BOM gestiona, en la misma versión.
+  meta-completeness:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      packages: read
+    uses: ./.github/workflows/check-meta-completeness.yml

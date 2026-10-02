@@ -9,7 +9,18 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  # Antes de publicar corre la misma prueba que en el PR (ADR-052, regla 3): si el BOM saliera antes
+  # que el meta-starter que trae sus starters, se detiene aquí y no se publica nada.
+  check:
+    permissions:
+      contents: read
+      packages: read
+    uses: ./.github/workflows/check-meta-completeness.yml
+    with:
+      ref: main # reusable-publish-maven.yml publica siempre main
+
   publish:
+    needs: check
     uses: ahincho/nova-shared-02-pipelines/.github/workflows/reusable-publish-maven.yml@main
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

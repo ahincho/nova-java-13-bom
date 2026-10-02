@@ -7,7 +7,7 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>3.1.0</version>
+        <version>4.0.0</version>
     </parent>
 
     <artifactId>nova-spring-boot-bom</artifactId>
@@ -25,18 +25,20 @@
         <!-- La misma instrumentación con la que se construye nova-observability-spring-boot-starter
              (otelInstrumentationVersion en su build.gradle.kts). -->
         <opentelemetry-instrumentation.version>2.31.1</opentelemetry-instrumentation.version>
-        <!-- Starters internos: artifactId según ADR-039. Últimas versiones publicadas,
-             verificadas el 2026-10-01. -->
-        <mask-utils-spring-boot-starter.version>3.0.1</mask-utils-spring-boot-starter.version>
-        <api-standard-spring-boot-starter.version>3.0.1</api-standard-spring-boot-starter.version>
-        <observability-spring-boot-starter.version>2.0.2</observability-spring-boot-starter.version>
-        <nova-spring-boot-starter.version>1.0.4</nova-spring-boot-starter.version>
+        <!-- Starters internos: artifactId según ADR-039. Cada entrada de dependencyManagement usa su
+             propiedad, que vive en este mismo POM: con un literal al lado, cambiar solo la propiedad
+             no gestionaba nada, y así salió la 2.0.1. Últimas versiones publicadas, verificadas el
+             2026-10-01. -->
+        <nova-mask-spring-boot-starter.version>4.0.0</nova-mask-spring-boot-starter.version>
+        <nova-api-standard-spring-boot-starter.version>4.0.0</nova-api-standard-spring-boot-starter.version>
+        <nova-observability-spring-boot-starter.version>3.0.0</nova-observability-spring-boot-starter.version>
+        <nova-spring-boot-starter.version>3.0.0</nova-spring-boot-starter.version>
         <!-- Capacidad de secretos (ADR-041): nova-java-23-secrets publica todos sus artefactos con
              una sola versión, así que el BOM los gestiona con una sola propiedad. Última versión
              publicada, verificada el 2026-10-01. -->
         <nova-secrets.version>1.2.0</nova-secrets.version>
         <!-- Capacidad de idempotencia (ADR-047): nova-java-25-idempotency publica sus tres artefactos
-             con una sola versión. Última versión publicada, verificada el 2026-09-30. -->
+             con una sola versión. Última versión publicada, verificada el 2026-10-01. -->
         <nova-idempotency.version>0.1.1</nova-idempotency.version>
     </properties>
 
@@ -79,27 +81,29 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- Starters internos Nova Platform para Spring Boot (versiones literales
-                 para evitar depender de la interpolación de properties del parent POM). -->
+            <!-- Starters internos Nova Platform para Spring Boot. El meta-starter declara sus propias
+                 versiones y no importa este BOM (ADR-052, regla 1); la prueba de completitud
+                 (scripts/check_meta_completeness.py) exige que traiga cada starter de esta lista, en
+                 la misma versión, salvo nova-idempotency-spring-boot-starter (ver el README). -->
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-mask-spring-boot-starter</artifactId>
-                <version>3.0.1</version>
+                <version>${nova-mask-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-api-standard-spring-boot-starter</artifactId>
-                <version>3.0.1</version>
+                <version>${nova-api-standard-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-observability-spring-boot-starter</artifactId>
-                <version>2.0.2</version>
+                <version>${nova-observability-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-spring-boot-starter</artifactId>
-                <version>1.0.4</version>
+                <version>${nova-spring-boot-starter.version}</version>
             </dependency>
             <!-- Capacidad de secretos (ADR-041, regla 5): los cuatro artefactos salen con la misma
                  versión y las entradas usan nova-secrets.version, no un literal. Con un literal la
