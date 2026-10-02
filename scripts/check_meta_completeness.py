@@ -65,6 +65,9 @@ FAMILIES = [
                 "enmienda de ADR-052: se enciende sola, exige la tabla de su almacén JDBC y es 0.x; "
                 "entra cuando no cambie nada sin configurarla, en una versión 1.x"
             ),
+            "nova-persistence-spring-boot-starter": (
+                "ADR-054: trae JPA, y un servicio sin base de datos no lo necesita; se declara aparte"
+            ),
         },
     ),
     Family(

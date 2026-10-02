@@ -7,7 +7,7 @@
     <parent>
         <groupId>pe.edu.nova.java</groupId>
         <artifactId>nova-bom</artifactId>
-        <version>4.1.0</version>
+        <version>4.2.0</version>
     </parent>
 
     <artifactId>nova-spring-boot-bom</artifactId>
@@ -43,6 +43,9 @@
         <!-- Capacidad de CQRS (ADR-053): nova-java-27-cqrs publica sus dos artefactos con una sola
              versión. Última versión publicada, verificada el 2026-10-02. -->
         <nova-cqrs.version>1.0.0</nova-cqrs.version>
+        <!-- Capacidad de persistencia (ADR-054): nova-java-28-persistence publica sus dos artefactos con una
+             sola versión. Última versión publicada, verificada el 2026-10-02. -->
+        <nova-persistence.version>1.0.0</nova-persistence.version>
     </properties>
 
     <dependencyManagement>
@@ -87,7 +90,8 @@
             <!-- Starters internos Nova Platform para Spring Boot. El meta-starter declara sus propias
                  versiones y no importa este BOM (ADR-052, regla 1); la prueba de completitud
                  (scripts/check_meta_completeness.py) exige que traiga cada starter de esta lista, en
-                 la misma versión, salvo nova-idempotency-spring-boot-starter (ver el README). -->
+                 la misma versión, salvo nova-idempotency-spring-boot-starter y
+                 nova-persistence-spring-boot-starter (ver el README). -->
             <dependency>
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-mask-spring-boot-starter</artifactId>
@@ -142,6 +146,18 @@
                 <groupId>pe.edu.nova.java.starters</groupId>
                 <artifactId>nova-cqrs-spring-boot-starter</artifactId>
                 <version>${nova-cqrs.version}</version>
+            </dependency>
+            <!-- Capacidad de persistencia (ADR-054), con la misma regla. No entra en el meta-starter: trae
+                 JPA, y un servicio sin base de datos no la necesita. -->
+            <dependency>
+                <groupId>pe.edu.nova.java.libs</groupId>
+                <artifactId>nova-persistence</artifactId>
+                <version>${nova-persistence.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pe.edu.nova.java.starters</groupId>
+                <artifactId>nova-persistence-spring-boot-starter</artifactId>
+                <version>${nova-persistence.version}</version>
             </dependency>
             <!-- Capacidad de idempotencia (ADR-047), con la misma regla: una sola propiedad, en este
                  POM, y todas las entradas la usan. -->
